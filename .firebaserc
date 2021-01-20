@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "chat-base-b2bf7": {
+      "hosting": {
+        "chat-app": [
+          "chat-base-b2bf7"
+        ]
+      }
+    }
+  }
+}
