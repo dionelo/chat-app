@@ -1,0 +1,31 @@
+.inputGroup {
+  position: relative;
+  height: auto;
+}
+
+.inputGroup input {
+  width: 100%;
+}
+
+.inputGroup i {
+  position: absolute;
+  right: 10px;
+  top: 35px;
+  z-index: 100;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+i.correct {
+  color: green;
+}
+
+i.incorrect {
+  color: red;
+}
+
+.alertDanger {
+  color: red;
+}

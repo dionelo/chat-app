@@ -11,6 +11,7 @@ import firebase from 'firebase/app';
 export class AuthService {
   private user: Observable<firebase.User | null>;
   private authState: any;
+  errorMessage!: string;
 
   constructor(
     private firebaseAuth: AngularFireAuth,
@@ -28,38 +29,45 @@ export class AuthService {
     return this.authState !== null ? this.authState.user.uid : '';
   }
 
-  login(email: string, password: string): Promise<void> {
-    return this.firebaseAuth
+  async register(
+    email: string,
+    password: string,
+    displayName: string
+  ): Promise<void> {
+    await this.firebaseAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        this.authState = user;
+        const status = 'online';
+        this.setUserData(email, displayName, status);
+        this.router.navigate(['chat']);
+      })
+      .catch((error) => {
+        this.errorHandler(error);
+      });
+  }
+
+  async login(email: string, password: string): Promise<void> {
+    await this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user;
         const status = 'online';
         this.setUserStatus(status);
         this.router.navigate(['chat']);
+      })
+      .catch((error) => {
+        this.errorHandler(error);
       });
   }
 
   logout(): void {
-    this.firebaseAuth.signOut();
-    this.router.navigate(['login']);
-  }
-
-  register(
-    email: string,
-    password: string,
-    displayName: string
-  ): Promise<void> {
-    return this.firebaseAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        this.authState = user;
-        console.log(this.authState.user);
-        const status = 'online';
-        this.setUserData(email, displayName, status);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.firebaseAuth.signOut()
+    .then(() => {
+      const status = 'offline';
+      this.setUserStatus(status);
+      this.router.navigate(['login']);
+    });
   }
 
   setUserData(email: string, displayName: string, status: string): void {
@@ -69,8 +77,6 @@ export class AuthService {
       displayName,
       status,
     };
-    console.log(data);
-
     this.database
       .object(path)
       .update(data)
@@ -84,5 +90,27 @@ export class AuthService {
       .object(path)
       .update(data)
       .catch((error) => console.log(error));
+  }
+
+  errorHandler(error: any): void {
+    switch (error.code) {
+      case 'auth/invalid-email':
+      case 'auth/wrong-password':
+      case 'auth/user-not-found':
+      case 'auth/email-already-in-use':
+      case 'auth/operation-not-allowed': {
+        this.errorMessage = 'Wrong email address or password.';
+        break;
+      }
+      case 'auth/user-disabled':
+      case 'user-disabled': {
+        this.errorMessage = 'This account is disabled';
+        break;
+      }
+      case 'auth/weak-password': {
+        this.errorMessage = 'The password is too weak';
+        break;
+      }
+    }
   }
 }

@@ -1,6 +1,6 @@
 <div class="navBar">
   <div id="logo"></div>
-  <div id="heading"><a routerLink="/">Pipi chat</a></div>
+  <div id="heading"><a routerLink="/">ChatApp</a></div>
   <div class="links">
     <span>
       <a *ngIf="!(user | async)?.uid" routerLink="/login">Login</a>
@@ -10,11 +10,11 @@
     </span>
     <span>
       <span id="userEmail" *ngIf="(user | async)?.uid">
-        Hello, {{ userEmail }}
+        Hi, {{ userEmail }}
       </span>
     </span>
     <span>
-      <a *ngIf="(user | async)?.uid" (click)="logout()">Logout</a>
+      <a *ngIf="(user | async)?.uid" href="#" (click)="logout()">Logout</a>
     </span>
   </div>
 </div>

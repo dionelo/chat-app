@@ -1,34 +1,189 @@
 <div class="container">
-    <div class="signUpCard">
-     <form #signupForm="ngForm">
+  <div class="signUpCard">
+    <form #signupForm="ngForm">
       <h2 class="heading">Sign Up</h2>
-  
-      <label class="label">Email</label>
-         <input 
-         type="email" name="email"
-         placeholder="Enter your email address" 
-         [(ngModel)]="email" class="formInput"
-         maxlength="60" required/>
-  
-      <label class="label">Password</label>
-        <input 
-          type="password" name="password"
-          placeholder="Choose a password" 
-          [(ngModel)]="password" class="formInput" 
-          required/>
-  
-      <label class="label">Display Name</label>
-        <input 
+
+      <div class="inputGroup">
+        <label class="label">Email</label>
+        <input
+          type="email"
+          name="email"
+          class="formInput"
+          placeholder="Enter your email address"
+          [(ngModel)]="email"
+          [pattern]="regularExpressions.email"
+          #emailAlert="ngModel"
+          maxlength="60"
+          minlength="8"
+          required
+        />
+
+        <div
+          *ngIf="emailAlert.invalid && (emailAlert.dirty || emailAlert.touched)"
+        >
+          <i class="fas fa-times-circle incorrect"></i>
+        </div>
+
+        <div *ngIf="emailAlert.valid">
+          <i class="fas fa-check-circle correct"></i>
+        </div>
+
+        <div
+          *ngIf="emailAlert.invalid && (emailAlert.dirty || emailAlert.touched)"
+          class="alertDanger"
+        >
+          <span *ngIf="emailAlert.errors?.required">Email is required.</span>
+          <span *ngIf="emailAlert.errors?.minlength">
+            Email must be at least 8 characters long.
+          </span>
+          <span *ngIf="emailAlert.errors?.pattern">
+            Email can only contain letters, numbers, periods, hyphens and
+            underscores
+          </span>
+        </div>
+      </div>
+
+      <div class="inputGroup">
+        <label class="label">Password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Choose a password"
+          [(ngModel)]="password"
+          #passwordAlert="ngModel"
+          class="formInput"
+          required
+          minlength="8"
+        />
+
+        <div
+          *ngIf="
+            passwordAlert.invalid &&
+            (passwordAlert.dirty || passwordAlert.touched)
+          "
+        >
+          <i class="fas fa-times-circle incorrect"></i>
+        </div>
+
+        <div *ngIf="passwordAlert.valid">
+          <i class="fas fa-check-circle correct"></i>
+        </div>
+
+        <div
+          *ngIf="
+            passwordAlert.invalid &&
+            (passwordAlert.dirty || passwordAlert.touched)
+          "
+          class="alertDanger"
+        >
+          <span *ngIf="passwordAlert.errors?.required">
+            Password is required.
+          </span>
+          <span *ngIf="passwordAlert.errors?.minlength">
+            Password must be at least 8 characters long.
+          </span>
+        </div>
+      </div>
+
+      <div class="inputGroup">
+        <label class="label">Confirm Password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm your password"
+          [(ngModel)]="confirmPassword"
+          #confirmPasswordAlert="ngModel"
+          ngValidateEqual="password"
+          class="formInput"
+          required
+          minlength="8"
+        />
+
+        <div
+          *ngIf="
+            confirmPasswordAlert.invalid &&
+            (confirmPasswordAlert.dirty || confirmPasswordAlert.touched)
+          "
+        >
+          <i class="fas fa-times-circle incorrect"></i>
+        </div>
+
+        <div *ngIf="confirmPasswordAlert.valid">
+          <i class="fas fa-check-circle correct"></i>
+        </div>
+
+        <div
+          *ngIf="
+            confirmPasswordAlert.invalid &&
+            (confirmPasswordAlert.dirty || confirmPasswordAlert.touched)
+          "
+          class="alertDanger"
+        >
+          <span *ngIf="confirmPasswordAlert.errors?.required">
+            You must confirm your password.
+          </span>
+
+          <span
+            *ngIf="
+              confirmPasswordAlert.hasError('notEqual') && passwordAlert.valid
+            "
+          >
+            Passwords don't match.
+          </span>
+        </div>
+      </div>
+
+      <div class="inputGroup">
+        <label class="label">Display Name</label>
+        <input
+          type="text"
           name="displayName"
-          placeholder="Enter a display name" 
-          [(ngModel)]="displayName" class="formInput"
-          maxlength="12" required/>
-  
-        <button [disabled]="!signupForm.form.valid" 
-                type="submit" (click)="signup()"
-                class="btn" id="btn-signUp">
-                Sign Up
-        </button>
-      </form>
-    </div>
+          placeholder="Enter a display name"
+          [(ngModel)]="displayName"
+          #displayNameAlert="ngModel"
+          class="formInput"
+          maxlength="12"
+          required
+        />
+        <div
+          *ngIf="
+            displayNameAlert.invalid &&
+            (displayNameAlert.dirty || displayNameAlert.touched)
+          "
+        >
+          <i class="fas fa-times-circle incorrect"></i>
+        </div>
+        <div *ngIf="displayNameAlert.valid">
+          <i class="fas fa-check-circle correct"></i>
+        </div>
+
+        <div
+          *ngIf="
+            displayNameAlert.invalid &&
+            (displayNameAlert.dirty || displayNameAlert.touched)
+          "
+          class="alertDanger"
+        >
+          <span *ngIf="displayNameAlert.errors?.required">
+            You need a username.
+          </span>
+          <span *ngIf="displayNameAlert.errors?.maxlength">
+            Your username cannot be longer than 12 characters.
+          </span>
+        </div>
+      </div>
+
+      <span style="color: red">{{ errorMessage }}</span>
+
+      <button
+        [disabled]="!signupForm.form.valid"
+        type="submit"
+        (click)="signup()"
+        class="btn"
+        id="btn-signUp"
+      >
+        Sign Up
+      </button>
+    </form>
   </div>
+</div>

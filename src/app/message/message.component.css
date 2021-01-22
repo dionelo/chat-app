@@ -16,13 +16,16 @@
 .messageData {
   flex: 1;
   padding: 10px;
-  font-size: 0.7em;
+  font-size: 0.6em;
 }
 
 .sender {
   display: block;
   color: #222;
-  font-weight: bold;
+  font-weight: bolder;
+  border-bottom: solid 1px rgb(145, 143, 143);
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 
 .isOwnSender {

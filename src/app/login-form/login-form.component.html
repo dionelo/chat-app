@@ -1,13 +1,58 @@
 <div class="container">
   <div class="loginCard">
-    <h2 class="heading">Log In</h2>
-    <input [(ngModel)]="email" type="email" name="email" class="formInput" />
-    <input
-      type="password"
-      [(ngModel)]="password"
-      name="password"
-      class="formInput"
-    />
-    <button class="btn" id="btn-login" (click)="login()">Log In</button>
+    <form #loginForm="ngForm">
+      <h2 class="heading">Log In</h2>
+
+      <input
+        type="email"
+        name="email"
+        class="formInput"
+        placeholder="Your email"
+        [(ngModel)]="email"
+        #emailAlert="ngModel"
+        required
+      />
+
+      <div
+        *ngIf="emailAlert.invalid && (emailAlert.dirty || emailAlert.touched)"
+        class="alertDanger"
+      >
+        <span *ngIf="emailAlert.errors?.required">Email is required.</span>
+      </div>
+
+      <input
+        type="password"
+        name="password"
+        class="formInput"
+        placeholder="Your password"
+        [(ngModel)]="password"
+        #passwordAlert="ngModel"
+        required
+      />
+
+      <div
+        *ngIf="
+          passwordAlert.invalid &&
+          (passwordAlert.dirty || passwordAlert.touched)
+        "
+        class="alertDanger"
+      >
+        <span *ngIf="passwordAlert.errors?.required">
+          Password is required.
+        </span>
+      </div>
+
+      <span class="alertDanger">{{ errorMessage }}</span>
+
+      <button
+        [disabled]="!loginForm.form.valid"
+        class="btn"
+        type="submit"
+        id="btn-login"
+        (click)="login()"
+      >
+        Log In
+      </button>
+    </form>
   </div>
 </div>

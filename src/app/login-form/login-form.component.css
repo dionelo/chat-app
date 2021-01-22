@@ -27,6 +27,7 @@
 .formInput {
   margin: auto;
   margin-top: 16px;
+  margin-bottom: 5px;
   display: block;
   width: 60%;
   height: 40px;
@@ -53,15 +54,6 @@
   transition: ease-in 0.2s;
 }
 
-#btn-signUp {
-  background-color: #2a2845;
-}
-
-#btn-signUp:hover {
-  background-color: #4a4865;
-  transition: ease-in 0.2s;
-}
-
 #btn-login {
   background-color: #4a4875;
 }
@@ -69,6 +61,11 @@
 #btn-login:hover {
   background-color: #5a5895;
   transition: ease-in 0.2s;
+}
+
+#btn-login:disabled {
+  background-color: #eee;
+  color: #999;
 }
 
 h2 {

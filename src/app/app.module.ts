@@ -20,6 +20,7 @@ import { UserItemComponent } from './user-item/user-item.component';
 import { AuthService } from './services/auth.service';
 import { ChatService } from './services/chat.service';
 import { environment } from '../environments/environment';
+import { ValidateEqualModule } from 'ng-validate-equal';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { environment } from '../environments/environment';
     SignupFormComponent,
     NavbarComponent,
     UserListComponent,
-    UserItemComponent,
+    UserItemComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +42,7 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    ValidateEqualModule
   ],
   providers: [AuthService, ChatService],
   bootstrap: [AppComponent],
