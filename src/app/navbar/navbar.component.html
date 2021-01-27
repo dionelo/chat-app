@@ -3,10 +3,10 @@
   <div id="heading"><a routerLink="/">ChatApp</a></div>
   <div class="links">
     <span>
-      <a *ngIf="!(user | async)?.uid" routerLink="/login">Login</a>
+      <a *ngIf="!(user | async)?.uid" routerLink="/login" routerLinkActive="active">Login</a>
     </span>
     <span>
-      <a *ngIf="!(user | async)?.uid" routerLink="/signup">Sign Up</a>
+      <a *ngIf="!(user | async)?.uid" routerLink="/signup" routerLinkActive="active">Sign Up</a>
     </span>
     <span>
       <span id="userEmail" *ngIf="(user | async)?.uid">
@@ -14,7 +14,7 @@
       </span>
     </span>
     <span>
-      <a *ngIf="(user | async)?.uid" href="#" (click)="logout()">Logout</a>
+      <a *ngIf="(user | async)?.uid" style="cursor: pointer;" (click)="logout()">Logout</a>
     </span>
   </div>
 </div>

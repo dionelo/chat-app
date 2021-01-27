@@ -1,7 +1,7 @@
 .messageContainer {
   display: flex;
   height: auto;
-  width: 70%;
+  width: 50%;
   min-width: 400px;
   border-radius: 5px;
   align-items: stretch;
@@ -10,7 +10,9 @@
 }
 
 .isOwnMessageContainer {
-  background-color: #01579b;
+  background-color: #075e54;
+  margin-left: 10%;
+
 }
 
 .messageData {
@@ -29,7 +31,8 @@
 }
 
 .isOwnSender {
-  color: #e1f5fe;
+  color: #dcf8c6;
+  border-bottom: solid 1px #dcf8c6;
 }
 
 .timestamp {
@@ -38,7 +41,7 @@
 }
 
 .isOwnTimestamp {
-  color: #4fc3f7;
+  color: #fff;
 }
 
 .messageContent {
@@ -51,6 +54,6 @@
 }
 
 .isOwnMessageContent {
-  background-color: #e3f2fd;
-  color: #01579b;
+  background-color: #dcf8c6;
+  color: #222;
 }

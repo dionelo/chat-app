@@ -1,6 +1,6 @@
 .userItem {
   height: auto;
-  padding: 10px;
+  padding: 5px;
   width: 90%;
   margin-top: 10px;
   border-radius: 1px;
@@ -10,6 +10,7 @@
   color: #a098a5;
   border-radius: 8px;
   transition: ease-in 0.2s;
+  font-size: 0.9em;
 }
 
 .userItem:hover {

@@ -52,8 +52,7 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user;
-        const status = 'online';
-        this.setUserStatus(status);
+        this.setUserStatus('online');
         this.router.navigate(['chat']);
       })
       .catch((error) => {
@@ -62,12 +61,10 @@ export class AuthService {
   }
 
   logout(): void {
-    this.firebaseAuth.signOut()
-    .then(() => {
-      const status = 'offline';
-      this.setUserStatus(status);
-      this.router.navigate(['login']);
-    });
+    this.firebaseAuth.signOut();
+    // this.authState = user;
+    this.setUserStatus('offline');
+    this.router.navigate(['login']);
   }
 
   setUserData(email: string, displayName: string, status: string): void {

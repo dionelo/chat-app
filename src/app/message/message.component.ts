@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChatMessage } from '../models/chat-message.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-message',
@@ -15,8 +16,14 @@ export class MessageComponent implements OnInit {
   messageContent?: string;
   timeStamp?: string | Date = new Date();
   isOwnMessage?: boolean;
+  ownEmail?: string | null;
 
-  constructor() {}
+  constructor(private authService: AuthService) {
+    authService.authUser().subscribe(user => {
+      this.ownEmail = user?.email;
+      this.isOwnMessage = this.ownEmail === this.userEmail;
+    });
+  }
 
   ngOnInit(chatMessage = this.chatMessage): void {
     this.messageContent = chatMessage.message;
